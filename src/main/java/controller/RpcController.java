@@ -22,6 +22,10 @@ public class RpcController {
         public Boolean call() {
             try {
                 while(!resp.containsKey(name));
+                /***
+                    tips:
+                    it will loop util resp has the name 
+                ***/
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
