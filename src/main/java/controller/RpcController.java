@@ -21,7 +21,10 @@ public class RpcController {
 
         public Boolean call() {
             try {
-                while(!resp.containsKey(name));
+                while(!resp.containsKey(name)){
+                    System.out.println(resp.size());
+                    Thread.sleep(100);
+                }
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -39,20 +42,9 @@ public class RpcController {
         }
 
         public void run() {
-//            ExecutorService excutor = Executors.newSingleThreadExecutor();
-//            Future<Boolean> future = excutor.submit(new Caller(name));
-//            try {
-//                future.get(1500, TimeUnit.MILLISECONDS);
-//            } catch (TimeoutException e) {
-//              System.out.println("timeout");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            } finally {
-//                excutor.shutdownNow();
-//            }
             try {
                 Upstream us = new Upstream();
-
+                Thread.sleep(1000);
                 us.resolution();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -65,11 +57,12 @@ public class RpcController {
         String shortAddress = "TEST";
         String endPoint = "1";
         String deviceId = shortAddress + endPoint;
+
+        resp.put("0","0");
         Downstreaam ds = new Downstreaam();
         Upstream us = new Upstream();
         // 向网关发送指令
         ds.send2Gateway(shortAddress, endPoint);
-//        new Thread(new Runner(deviceId)).start();
         // 模拟指令返回
         new Thread(new Runner(deviceId)).start();
         // 新建线程获取指令返回
